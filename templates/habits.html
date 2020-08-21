@@ -1,14 +1,67 @@
 <!DOCTYPE html>
+
+<style>
+    table {
+        border: 1px solid #eeeeee;
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    td, th {
+        padding: 8px;
+        border-bottom: 1px solid #eeeeee;
+    }
+
+    th {
+        text-align: left;
+    }
+
+    tr:not(:first-child):hover {
+        background-color: #eeeeee;
+    }
+
+    .flashes {
+        background-color: indianred;
+        max-width: 500px;
+        padding: 12px 32px;
+        border-radius: 4px;
+        color: white;
+    }
+</style>
+
 <title>Hello from Flask!</title>
-<table style="width: 100%;">
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<form method="POST">
+    <input type="text" name="title" placeholder="New Habit">
+    <input type="submit" value="Create Habit">
+</form>
+
+<br/>
+
+<table>
     <tr>
         <th>ID</th>
         <th>Title</th>
+        <th></th>
     </tr>
     {% for habit in habits %}
     <tr>
-        <th>{{habit.id}}</th>
-        <th>{{habit.title}}</th>
+        <td>{{habit.id}}</td>
+        <td><a href="/habits/{{habit.id}}">{{habit.title}}</a></td>
+        <td>
+            <a href="/habits/edit/{{habit.id}}">Edit</a>
+            <a href="/habits/delete/{{habit.id}}">Delete</a>
+        </td>
     </tr>
     {% endfor %}
 </table>
