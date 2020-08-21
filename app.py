@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from habit import Habit
 import json
 
@@ -13,7 +13,7 @@ habits = [
 
 @app.route("/habits")
 def get_all():
-    return jsonify(habits), 200
+    return render_template("habits.html", habits = habits)
 
 @app.route("/habits/<int:habit_id>", methods = ["GET"])
 def get_one(habitID):
