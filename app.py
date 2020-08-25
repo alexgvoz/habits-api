@@ -12,13 +12,6 @@ mydb = mysql.connector.connect(
   database="mydatabase"
 )
 
-habits = [
-    Habit("Clean").to_dict(),
-    Habit("Work").to_dict(),
-    Habit("Run").to_dict(),
-    Habit("Sleep").to_dict()
-]
-
 @app.route("/habits")
 def get_all():
     habits = models.habit.list_habits(mydb)
